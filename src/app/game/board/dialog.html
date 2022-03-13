@@ -1,0 +1,55 @@
+
+<div class="container" *ngIf="data[0].type !== 'CHECKPOINT' && data[0].type !=='BUSINESS' && data[0].type !== 'CHEST/CHANCE'">
+    <h1 mat-dialog-title>{{data[0].name}}</h1>
+  <h3 >{{data[0].type}}</h3>
+  <h3>BUY VALUE: ₹ {{data[0].price}}</h3>
+  <div mat-dialog-content>
+    <table>
+      <tr><td><p>RENT SITE ONLY</p></td>
+      <td><p> ₹ {{data[0].upgrades[0]}}</p></td></tr>
+      <tr><td><p>RENT 1 HOUSE</p></td>
+      <td><p> ₹ {{data[0].upgrades[1]}}</p></td></tr>
+      <tr><td><p>RENT 2 HOUSE</p></td>
+      <td><p> ₹ {{data[0].upgrades[2]}}</p></td></tr>
+      <tr><td><p>RENT 3 HOUSE</p></td>
+      <td><p> ₹ {{data[0].upgrades[3]}}</p></td></tr>
+    </table>
+    <table style="margin-top:1rem">
+      <tr><td><p>COST OF HOUSE</p></td>
+      <td><p> ₹ {{data[0].houseCost}}</p></td></tr>
+
+     </table>
+    </div>
+    <div class="buy-btn" *ngIf="data[0].bought == false && data[1].currentPos === data[0].id && data[1].bank.balance >= data[0].price">
+      <button mat-stroked-button (click)="toBuy(data)">Buy</button>
+    </div>
+    <!-- <h3 *ngIf="data[0].bought">OWNER: {{data[0].owner}}</h3> -->
+  <p *ngIf="data[0].bought == false && data[1].currentPos === data[0].id && data[1].bank.balance < data[0].price" style="color:'red';margin-top:1rem;">You dont have enough funds.</p>
+
+</div>
+
+<div class="container" *ngIf="data[0].type === 'CHECKPOINT'">
+  <h1 mat-dialog-title>{{data[0].name}}</h1>
+  <p *ngIf="data[0].name === 'START'" style="color: 'green';">Every time a player crosses start point u get ₹1500 from bank.</p>
+  <p *ngIf="data[0].name === 'JAIL'" style="color: 'red';">For every jail visit u pay ₹100 to bank.</p>
+  <p *ngIf="data[0].name === 'DANCE CLUB'" style="color: 'red';">For every dance club visit u pay ₹100 to bank.</p>
+  <p *ngIf="data[0].name === 'REST HOUSE'" style="color: 'green';">For every rest house visit u get ₹100 from bank.</p>
+</div>
+
+
+<div class="container" *ngIf="data[0].type === 'CHEST/CHANCE'">
+  <h1 mat-dialog-title>{{data[0].name}}</h1>
+  <h4 style="width:50%;text-align: left;word-wrap:break-word" >{{data[0].rules}}</h4>
+  <!-- <h4 *ngIf="data[0].name =='CHANCE'" >CHANCE RULES</h4> -->
+</div>
+
+<div class="container" *ngIf="data[0].type === 'BUSINESS'">
+  <h1 mat-dialog-title>{{data[0].name}}</h1>
+  <h3>BUY VALUE: ₹ {{data[0].price}}</h3>
+  <h3>RENT: ₹ {{data[0].rent}}</h3>
+  <div class="buy-btn" *ngIf="data[0].bought == false && data[1].currentPos === data[0].id && data[1].bank.balance >= data[0].price">
+    <button mat-stroked-button (click)="toBuy(data)">Buy</button>
+  </div>
+  <!-- <h3 *ngIf="data[0].bought" >OWNER:{{[data[0].owner]}}</h3> -->
+  <p *ngIf="data[0].bought == false && data[1].currentPos === data[0].id && data[1].bank.balance < data[0].price" style="color:'red';margin-top:1rem;">You dont have enough funds.</p>
+</div>

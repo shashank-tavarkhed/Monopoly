@@ -1,0 +1,58 @@
+<div class="container" *ngIf="players && players.length">
+  <div class="player-details">
+    <mat-card class="player">
+      <h2>PORTFOLIO</h2>
+      <hr width="90%">
+      <div class="portfolio">
+        <div class="details">
+          <div>
+            <h2>PLAYER: {{ user.name }}</h2>
+            <h3>PLAYER ID : {{user.playerID}} </h3>
+          </div>
+          <h2>BALANCE: ₹ {{user.bank.balance}} </h2>
+          <h4 style="background-color: red;" *ngif="user.hasLoan">Loan : ₹{{user.bank.loan}}</h4>
+          <div class="color" [ngStyle]="{'background-color': user.color}"></div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="players" (click)="onClick()">
+      <h2>PLAYERS</h2>
+      <hr width="90%">
+      <mat-card class="player-card" *ngFor="let player of players" [ngStyle]="{'background-color': player.isBankrupt ? '#ff385d99' : 'white'}">
+        <div>
+          <h3>{{player.name}}</h3>
+          <p style="font-size: 0.7rem; margin:0;" *ngIf="player.isBankrupt">(Bankrupt)</p>
+        </div>
+        <div>
+          <div class="color" [ngStyle]="{'background-color': player.color}" style="float:right;width:1.5rem;height:100%;border-radius:1rem"></div>
+        </div>
+      </mat-card>
+
+    </mat-card>
+  </div>
+  <mat-card class="properties">
+    <h2>INVESTMENTS</h2>
+    <hr width="95%">
+    <h4 *ngIf="user.cards.length===0">No properties bought yet!</h4>
+    <h6 *ngIf="user.cards.length===0 && user.isBankrupt == true">Properties sold due to Bankcruptcy.</h6>
+    <div class="investments" *ngFor="let prop of user.cards">
+      <mat-card class="investment">
+        <div>
+          <h4>{{prop.name}} </h4>
+          <p style="margin: 0;">{{prop.type}}</p>
+        </div>
+        <div *ngIf="prop.type =='CITY'">
+          <p style="margin: 0;color:'green';" *ngIf="prop.current_upgrade < 3">Rent: ₹ {{prop.upgrades[prop.current_upgrade]}} (+ ₹{{prop.upgrades[prop.current_upgrade+1]-prop.upgrades[prop.current_upgrade]}})</p>
+          <p style="margin: 0;color:'red';"*ngIf="prop.current_upgrade < 3" >Upgrade: ₹ {{prop.houseCost}}</p>
+        </div>
+        <div *ngIf="prop.type =='BUSINESS'">
+          <p style="margin: 0;color:'green';">Rent: ₹ {{prop.rent}}</p>
+        </div>
+        <button mat-raised-button style="padding:0;" color="warn" *ngIf="prop.id == user.currentPos && prop.type !=='BUSINESS' && prop.current_upgrade < 3 && prop.upgradable == true" (click)="upgrade(prop)">Upgrade</button>
+        <!-- && prop.upgradable == true -->
+      </mat-card>
+    </div>
+  </mat-card>
+</div>
+
+

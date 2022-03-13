@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "scribb-le": {
+      "hosting": {
+        "app": [
+          "scribb-le"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "scribb-le"
+  }
+}

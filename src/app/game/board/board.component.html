@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row1">
+    <div class="cards">
+      <div class="card" (click)="openDialog([item,me])" [ngStyle]="item.bought ? {'background-color': item.color,'opacity':1} : {'background-color': 'white', 'opacity':1}" *ngFor="let item of boardCards.slice(0,11)" [ngClass]="{'corner': item.type === 'CHECKPOINT'}" id="{{item.id}}">
+        <div class="dice-content dice-content-{{item.id}}" >
+
+        </div>
+        <div class="content" >
+            <p *ngIf="item.type !== 'CHECKPOINT'">{{item.id}}</p>
+            <p>{{item.name}}</p>
+            <p *ngIf="item.bought == false && item.type !== 'CHECKPOINT' && item.type !== 'CHEST/CHANCE'">₹ {{item.price || item.collect || item.pay}}</p>
+            <p *ngIf="item.bought == true" style="color:'red';background-color:'white';">RENT : ₹ {{ item.rent || item.upgrades[item.current_upgrade] }}</p>
+            <!-- //&& me.index !== item.owner -->
+          </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row2">
+    <div class="col1">
+      <div class="card" (click)="openDialog([item,me])" [ngStyle]="item.bought ? {'background-color': item.color,'opacity':1} : {'background-color': 'white', 'opacity':1}" *ngFor="let item of boardCards.slice(31,40).reverse()" id="{{item.id}}" >
+        <div class="dice-content dice-content-{{item.id}}">
+
+        </div>
+        <div class="content" >
+            <p>{{item.id}}</p>
+            <p>{{item.name}}</p>
+            <p *ngIf="item.bought == false && item.type !== 'CHECKPOINT' && item.type !== 'CHEST/CHANCE'">₹ {{item.price || item.collect || item.pay}}</p>
+            <p *ngIf="item.bought == true" style="color:'red';background-color:'white';">RENT : ₹ {{item.rent || item.upgrades[item.current_upgrade]}}</p>
+          </div>
+      </div>
+    </div>
+    <div>
+      <h1>MONOPOLY</h1>
+    </div>
+    <div class="col2">
+      <div class="card" (click)="openDialog([item,me])" [ngStyle]="item.bought ? {'background-color': item.color,'opacity':1} : {'background-color': 'white', 'opacity':1}" *ngFor="let item of boardCards.slice(11,20)" id="{{item.id}}">
+        <div class="dice-content dice-content-{{item.id}}">
+
+        </div>
+        <div class="content" >
+            <p>{{item.id}}</p>
+            <p>{{item.name}}</p>
+            <p *ngIf="item.bought == false && item.type !== 'CHECKPOINT' && item.type !== 'CHEST/CHANCE'">₹ {{item.price || item.collect || item.pay}}</p>
+            <p *ngIf="item.bought == true" style="color:'red';background-color:'white';">RENT : ₹ {{  item.rent || item.upgrades[item.current_upgrade]  }}</p>
+          </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="row1">
+
+    <div class="cards">
+      <div class="card" (click)="openDialog([item,me])" [ngStyle]="item.bought ? {'background-color': item.color,'opacity':1} : {'background-color': 'white', 'opacity':1}" *ngFor="let item of boardCards.slice(20,31).reverse()" id="{{item.id}}" [ngClass]="{'corner': item.type === 'CHECKPOINT'}">
+        <div class="dice-content dice-content-{{item.id}}">
+
+        </div>
+        <div class="content" >
+            <p *ngIf="item.type !== 'CHECKPOINT'">{{item.id}}</p>
+            <p>{{item.name}}</p>
+            <p *ngIf="item.bought == false && item.type !== 'CHECKPOINT' && item.type !== 'CHEST/CHANCE'">₹ {{item.price || item.collect || item.pay}}</p>
+            <p *ngIf="item.bought == true" style="color:'red';background-color:'white';">RENT : ₹ {{ item.rent || item.upgrades[item.current_upgrade]}}</p>
+          </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="roll-dice" >
+    <div class="dice">
+        <img [src]="src[0]" class="dice-img">
+         <img [src]="src[1]" class="dice-img">
+    </div>
+    <button class="roll-btn" mat-stroked-button color="accent" (click)="onRoll()" [disabled]="!myTurn" [ngStyle]="{'background-color': myTurn ? '#00ff0040' : '#ff000040'}">Roll!</button>
+  </div>
+  <h3 class="currPlayer" [ngStyle]="{'color': gameData.players[playerTurn].color}">Current player turn: {{gameData.players[playerTurn].name}}</h3>
+</div>

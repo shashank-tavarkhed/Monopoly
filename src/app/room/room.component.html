@@ -1,0 +1,19 @@
+<div class="main">
+    <h1>MONOPOLY</h1>
+    <div class="container">
+        <div class="title">
+            Room #{{game.gameID}}
+        </div>
+        <div class="users">
+            <div class="user" *ngFor="let player of game.players">
+                <div class="name">
+                    {{player.name}} <span *ngIf="player.playerID == playerID">(me)</span>
+                </div>
+                <div class="color" [ngStyle]="{'background-color': player.color}"></div>
+            </div>
+        </div>
+        <div class="submit">
+            <button mat-raised-button color="accent" (click)="startGame()">Start</button>
+        </div>
+    </div>
+</div>
