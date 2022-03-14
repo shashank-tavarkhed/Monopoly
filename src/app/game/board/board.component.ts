@@ -58,7 +58,7 @@ export class BoardComponent implements OnInit {
       this.me.nextPos = (this.me.nextPos + (Math.floor(Math.random()*9)+3));
     };
     if(this.me.currentPos > this.me.nextPos) {
-      this.me.bank.balance -= 150000;
+      this.me.bank.balance += 1500;
 
       //changing cards upgradable property
       this.me.cards.forEach( (pc:any)=>{
